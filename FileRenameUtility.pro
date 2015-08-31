@@ -25,3 +25,5 @@ RESOURCES += \
 RC_ICONS   = icon.ico
 
 QMAKE_CXXFLAGS += -std=c++11
+
+CONFIG += c++11
