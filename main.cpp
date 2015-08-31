@@ -1,11 +1,24 @@
 #include "mainwindow.h"
+
 #include <QApplication>
+#include <QTranslator>
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+/*!
+ * \brief main The enterance of the application
+ * \param argc number of arguments
+ * \param argv the list of arguments
+ * \return the exit code of the application (to OS)
+ */
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
 
-    return a.exec();
+    QTranslator appTranslator;
+    QString qmFile = ":/sca_" + QLocale::system().name() + ".qm";
+    appTranslator.load(qmFile);
+    app.installTranslator(&appTranslator);
+
+    MainWindow window;
+    window.show();
+
+    return app.exec();
 }

@@ -33,49 +33,19 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_1">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetMaximumSize</enum>
+     <widget class="QLabel" name="labelApplication">
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
-      <property name="topMargin">
-       <number>0</number>
+      <property name="text">
+       <string>File Rename Utility</string>
       </property>
-      <item>
-       <widget class="QLabel" name="labelApplication">
-        <property name="font">
-         <font>
-          <family>微软雅黑</family>
-          <pointsize>16</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>File Rename Utility</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QProgressBar" name="progressBar">
-        <property name="value">
-         <number>0</number>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     </widget>
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
@@ -88,7 +58,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayout_1">
           <item>
            <widget class="QLabel" name="labelFileNamePattern">
             <property name="sizePolicy">
@@ -152,6 +122,9 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditDirectoryName">
+            <property name="text">
+             <string>D:/Xie Haozhe/Pictures/Material Library/Pictures</string>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -195,6 +168,9 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditNewFileName">
+            <property name="text">
+             <string>&lt;index&gt;</string>
+            </property>
             <property name="placeholderText">
              <string>Such as: NewPhotoName - &lt;index&gt;</string>
             </property>
@@ -203,9 +179,9 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QLabel" name="labelStartIndex">
+           <widget class="QLabel" name="labelStartNumber">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -225,12 +201,12 @@
              </size>
             </property>
             <property name="text">
-             <string>Start Index:</string>
+             <string>Starting Number:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="lineEditStartNumber">
             <property name="text">
              <string>1</string>
             </property>
@@ -239,7 +215,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
@@ -271,6 +247,21 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QTreeWidget" name="treeWidget">
+          <property name="indentation">
+           <number>0</number>
+          </property>
+          <property name="itemsExpandable">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>false</bool>
+          </property>
+          <attribute name="headerDefaultSectionSize">
+           <number>275</number>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>Origin File Name</string>
