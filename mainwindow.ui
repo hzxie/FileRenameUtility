@@ -123,7 +123,7 @@
           <item>
            <widget class="QLineEdit" name="lineEditDirectoryName">
             <property name="text">
-             <string>D:/Xie Haozhe/Pictures/Material Library/Pictures</string>
+             <string/>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -169,7 +169,7 @@
           <item>
            <widget class="QLineEdit" name="lineEditNewFileName">
             <property name="text">
-             <string>&lt;index&gt;</string>
+             <string/>
             </property>
             <property name="placeholderText">
              <string>Such as: NewPhotoName - &lt;index&gt;</string>

@@ -3,12 +3,13 @@
 
 #include <cmath>
 
+#include <QDesktopServices>
 #include <QFileDialog>
+#include <QMap>
 #include <QMessageBox>
 #include <QStringList>
 #include <QTreeWidgetItem>
-
-#include <QtDebug>
+#include <QUuid>
 
 /*!
  * \brief MainWindow::MainWindow
@@ -36,6 +37,12 @@ void MainWindow::initSignalsAndSlots() {
             this, &MainWindow::pushButtonBrowseClicked);
     connect(ui->pushButtonPreview, &QPushButton::clicked,
             this, &MainWindow::pushButtonPreviewClicked);
+    connect(ui->pushButtonProcess, &QPushButton::clicked,
+            this, &MainWindow::pushButtonProcessClicked);
+    connect(ui->actionExit, &QAction::triggered,
+            this, &MainWindow::actionExitTriggered);
+    connect(ui->actionAboutUs, &QAction::triggered,
+            this, &MainWindow::actionAboutUsTriggered);
 }
 
 /*!
@@ -57,6 +64,8 @@ void MainWindow::pushButtonBrowseClicked() {
  * \brief MainWindow::pushButtonPreviewClicked
  */
 void MainWindow::pushButtonPreviewClicked() {
+    ui->pushButtonPreview->setEnabled(false);
+
     QString fileNamePattern = ui->lineEditFileNamePattern->text();
     QString directoryName = ui->lineEditDirectoryName->text();
     QString newFileName = ui->lineEditNewFileName->text();
@@ -73,6 +82,7 @@ void MainWindow::pushButtonPreviewClicked() {
     getNewFileNames(matchedFiles, newFileName, startNumber);
 
     ui->tabWidget->setCurrentWidget(ui->tabPreview);
+    ui->pushButtonPreview->setEnabled(true);
 }
 
 /*!
@@ -99,6 +109,12 @@ QStringList MainWindow::getMatchedFiles(const QString& fileNamePattern, const QS
     return files;
 }
 
+/*!
+ * \brief MainWindow::getNewFileNames
+ * \param matchedFiles - a list contains file names which matched the file name pattern
+ * \param newFileNamePattern - the pattern of new file name
+ * \param index - the ID in the new file name
+ */
 void MainWindow::getNewFileNames(const QStringList& matchedFiles, QString newFileNamePattern, int index) {
     int totalFiles = matchedFiles.length();
     int maxNumber = index + totalFiles;
@@ -118,9 +134,9 @@ void MainWindow::getNewFileNames(const QStringList& matchedFiles, QString newFil
 
 /*!
  * \brief MainWindow::getNewFileNames
- * \param matchedFiles
- * \param newFileNamePattern
- * \param startNumber
+ * \param matchedFiles - a list contains file names which matched the file name pattern
+ * \param newFileNamePattern - the pattern of new file name
+ * \param startNumber - the starting number of the new file name
  */
 QString MainWindow::getFormattedNumber(int index, int maxNumber) {
     int numberOfLeadingZeros = std::ceil(std::log10(maxNumber));
@@ -158,4 +174,50 @@ QString MainWindow::getErrorMessage(const QString & fileNamePattern,
         return tr("The starting number is not a number.");
     }
     return QString("");
+}
+
+/*!
+ * \brief MainWindow::pushButtonProcessClicked
+ */
+void MainWindow::pushButtonProcessClicked() {
+    ui->pushButtonProcess->setEnabled(false);
+
+    QMap<QString, QString> finalNames;
+    QString directoryName = ui->lineEditDirectoryName->text() + "/";
+
+    for ( int i = 0; i < ui->treeWidget->topLevelItemCount(); ++ i ) {
+        QTreeWidgetItem* item = ui->treeWidget->topLevelItem(i);
+        QString originalName = directoryName + item->data(0, Qt::DisplayRole).toString();
+        QString finalName = directoryName + item->data(1, Qt::DisplayRole).toString();
+        QString tmpName = directoryName + QUuid::createUuid().toString();
+
+        QFile file(originalName);
+        if ( file.exists() ) {
+            file.rename(tmpName);
+            finalNames.insert(tmpName, finalName);
+        }
+    }
+    for ( QMap<QString, QString>::const_iterator itr = finalNames.constBegin();
+          itr != finalNames.constEnd(); ++ itr ) {
+        QFile file(itr.key());
+        file.rename(itr.value());
+    }
+    ui->treeWidget->clear();
+    ui->pushButtonProcess->setEnabled(true);
+
+    QMessageBox::information(NULL, tr("Message"), tr("Rename operation successfully completed."));
+}
+
+/*!
+ * \brief MainWindow::actionExitTriggered
+ */
+void MainWindow::actionExitTriggered() {
+    QApplication::quit();
+}
+
+/*!
+ * \brief MainWindow::actionAboutUsTriggered
+ */
+void MainWindow::actionAboutUsTriggered() {
+    QDesktopServices::openUrl(QString("https://github.com/zjhzxhz/FileRenameUtility"));
 }

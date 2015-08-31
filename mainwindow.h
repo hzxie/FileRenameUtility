@@ -20,6 +20,9 @@ private:
     QStringList getMatchedFiles(const QString& fileNamePattern, const QString& directoryName);
     void getNewFileNames(const QStringList& matchedFiles, QString newFileNamePattern, int index);
     QString getFormattedNumber(int index, int maxNumber);
+    void pushButtonProcessClicked();
+    void actionExitTriggered();
+    void actionAboutUsTriggered();
 private:
     Ui::MainWindow *ui;
 };
