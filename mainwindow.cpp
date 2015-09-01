@@ -64,8 +64,6 @@ void MainWindow::pushButtonBrowseClicked() {
  * \brief MainWindow::pushButtonPreviewClicked
  */
 void MainWindow::pushButtonPreviewClicked() {
-    ui->pushButtonPreview->setEnabled(false);
-
     QString fileNamePattern = ui->lineEditFileNamePattern->text();
     QString directoryName = ui->lineEditDirectoryName->text();
     QString newFileName = ui->lineEditNewFileName->text();
@@ -76,6 +74,7 @@ void MainWindow::pushButtonPreviewClicked() {
         QMessageBox::information(NULL, tr("Message"), errorMessage);
         return;
     }
+    ui->pushButtonPreview->setEnabled(false);
 
     int startNumber = startNumberString.toInt();
     QStringList matchedFiles = getMatchedFiles(fileNamePattern, directoryName);
