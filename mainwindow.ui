@@ -305,7 +305,7 @@
     <item>
      <widget class="QLabel" name="labelCopyright">
       <property name="text">
-       <string>Copyright(C) 2005-2015 TrunkShell. All rights reserved.</string>
+       <string>Copyright(C) 2005-2018 Infinite Script. All rights reserved.</string>
       </property>
      </widget>
     </item>
@@ -317,7 +317,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QMap>
 #include <QMessageBox>
+#include <QStandardPaths>
 #include <QStringList>
 #include <QTreeWidgetItem>
 #include <QUuid>
@@ -49,10 +50,15 @@ void MainWindow::initSignalsAndSlots() {
  * \brief MainWindow::pushButtonBrowseClicked
  */
 void MainWindow::pushButtonBrowseClicked() {
+    QString defaultDirectory = ui->lineEditDirectoryName->text();
+    if ( defaultDirectory.isEmpty() ) {
+        defaultDirectory = QStandardPaths::PicturesLocation;
+    }
+
     QString file = QFileDialog::getExistingDirectory(
                     this,
                     tr("Choose Directory"),
-                    "/",
+                    defaultDirectory,
                     QFileDialog::ShowDirsOnly |
                     QFileDialog::DontResolveSymlinks);
     if ( !file.isEmpty() ) {
@@ -218,5 +224,5 @@ void MainWindow::actionExitTriggered() {
  * \brief MainWindow::actionAboutUsTriggered
  */
 void MainWindow::actionAboutUsTriggered() {
-    QDesktopServices::openUrl(QString("https://github.com/zjhzxhz/FileRenameUtility"));
+    QDesktopServices::openUrl(QString("https://github.com/hzxie/FileRenameUtility"));
 }
